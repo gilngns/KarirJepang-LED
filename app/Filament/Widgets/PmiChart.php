@@ -11,7 +11,7 @@ class PmiChart extends ChartWidget
     protected ?string $heading = 'Jumlah Keberangkatan PMI';
 
     protected int|string|array $columnSpan = [
-        'default' => 1,
+        'md' => 1,
     ];
 
     protected function getData(): array

@@ -9,7 +9,9 @@ class TodayMeetings extends Widget
 {
     protected string $view = 'filament.widgets.today-meetings';
 
-    protected int|string|array $columnSpan = 'full';
+    protected int|string|array $columnSpan = [
+        'md' => 2,
+    ];
 
     public function getMeetings()
     {

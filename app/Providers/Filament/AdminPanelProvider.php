@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\CustomDashboard;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -38,12 +39,12 @@ class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
-                Dashboard::class,
+                CustomDashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->widgets([
                 AccountWidget::class,
-                FilamentInfoWidget::class,
                 \App\Filament\Widgets\PmiChart::class,
                 \App\Filament\Widgets\TodayMeetings::class,
             ])
@@ -61,5 +62,10 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ]);
+    }
+
+    public function getColumns(): int | array
+    {
+        return 12;
     }
 }
