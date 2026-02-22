@@ -13,18 +13,10 @@ return new class extends Migration
     {
         Schema::create('pmi_departures', function (Blueprint $table) {
             $table->id();
-
-            $table->year('year');
-
-            $table->foreignId('visa_id')
-                ->constrained()
-                ->cascadeOnDelete();
-
-            $table->integer('total');
-
+            $table->date('date');
+            $table->foreignId('visa_id')->constrained()->cascadeOnDelete();
+            $table->string('total');
             $table->timestamps();
-
-            $table->unique(['year', 'visa_id']);
         });
     }
 

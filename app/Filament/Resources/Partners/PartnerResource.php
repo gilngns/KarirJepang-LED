@@ -18,7 +18,7 @@ class PartnerResource extends Resource
 {
     protected static ?string $model = Partner::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBuildingOffice2;
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -31,12 +31,7 @@ class PartnerResource extends Resource
     {
         return PartnersTable::configure($table);
     }
-
-    public static function canViewAny(): bool
-    {
-        return auth()->user()->isAdmin();
-    }
-
+    
     public static function getRelations(): array
     {
         return [

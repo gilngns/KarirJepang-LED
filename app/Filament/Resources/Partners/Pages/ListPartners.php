@@ -16,4 +16,9 @@ class ListPartners extends ListRecords
             CreateAction::make(),
         ];
     }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Partners\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -14,12 +15,18 @@ class PartnersTable
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->searchable(),
-                TextColumn::make('logo')
-                    ->searchable(),
-                TextColumn::make('website')
-                    ->searchable(),
+            ImageColumn::make('logo')
+                ->disk('public')
+                ->square()
+                ->getStateUsing(fn($record) => asset('storage/' . $record->logo))
+                ->height(60),
+
+            TextColumn::make('name')
+                ->searchable(),
+
+            TextColumn::make('website')
+                ->url(fn($record) => $record->website)
+                ->openUrlInNewTab(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

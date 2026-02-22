@@ -11,7 +11,7 @@ class PmiDeparture extends Model
     use HasFactory;
 
     protected $fillable = [
-        'year',
+        'date',
         'visa_id',
         'total',
     ];
@@ -19,7 +19,7 @@ class PmiDeparture extends Model
     protected function casts(): array
     {
         return [
-            'year' => 'integer',
+            'date' => 'date',
         ];
     }
 

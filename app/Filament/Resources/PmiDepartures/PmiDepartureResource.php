@@ -18,9 +18,9 @@ class PmiDepartureResource extends Resource
 {
     protected static ?string $model = PmiDeparture::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPaperAirplane;
 
-    protected static ?string $recordTitleAttribute = 'year';
+    protected static ?string $recordTitleAttribute = 'total';
 
     public static function form(Schema $schema): Schema
     {
@@ -37,11 +37,6 @@ class PmiDepartureResource extends Resource
         return [
             //
         ];
-    }
-
-    public static function canViewAny(): bool
-    {
-        return auth()->user()->isAdmin();
     }
 
     public static function getPages(): array

@@ -14,12 +14,13 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Filament\Navigation\NavigationItem;
 
 class DivisionReportResource extends Resource
 {
     protected static ?string $model = DivisionReport::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
 
     protected static ?string $recordTitleAttribute = 'job_description';
 
@@ -37,18 +38,15 @@ class DivisionReportResource extends Resource
     {
         $query = parent::getEloquentQuery();
 
+        if (request()->has('status')) {
+            $query->where('status', request('status'));
+        }
+
         if (auth()->user()->isStaff()) {
             $query->where('user_id', auth()->id());
         }
 
         return $query;
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

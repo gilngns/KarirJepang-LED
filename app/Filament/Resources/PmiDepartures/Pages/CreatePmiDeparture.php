@@ -8,4 +8,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreatePmiDeparture extends CreateRecord
 {
     protected static string $resource = PmiDepartureResource::class;
+    
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

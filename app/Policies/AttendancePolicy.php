@@ -24,11 +24,11 @@ class AttendancePolicy
 
     public function update(User $user, Attendance $attendance): bool
     {
-        return $user->isAdmin() || $attendance->user_id === $user->id;
+        return $user->isAdmin();
     }
 
     public function delete(User $user, Attendance $attendance): bool
     {
-        return $user->isAdmin() || $attendance->user_id === $user->id;
+        return $user->isAdmin();
     }
 }

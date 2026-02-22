@@ -9,26 +9,26 @@ class PmiDeparturePolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->isAdmin();
+        return true;
     }
 
     public function view(User $user, PmiDeparture $pmi): bool
     {
-        return $user->isAdmin();
+        return true;
     }
 
     public function create(User $user): bool
     {
-        return $user->isAdmin();
+        return true;
     }
 
     public function update(User $user, PmiDeparture $pmi): bool
     {
-        return $user->isAdmin();
+        return true;
     }
 
     public function delete(User $user, PmiDeparture $pmi): bool
     {
-        return $user->isAdmin();
+        return true;
     }
 }

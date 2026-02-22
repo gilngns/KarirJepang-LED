@@ -23,6 +23,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->string('job_description');
+            $table->string('status')->default('in_progress');
 
             $table->unsignedTinyInteger('progress_percentage');
 

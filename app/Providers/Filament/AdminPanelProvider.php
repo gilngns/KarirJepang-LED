@@ -27,10 +27,14 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->brandName('Karir Jepang LED')
+            ->brandLogo(asset('images/logo-w.jpg'))
+            ->brandLogoHeight('40px')
+            ->favicon(asset('images/logo-fav.png'))
             ->login()
             ->colors([
                 'primary' => Color::Amber,
-            ])
+                ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
@@ -40,6 +44,8 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 AccountWidget::class,
                 FilamentInfoWidget::class,
+                \App\Filament\Widgets\PmiChart::class,
+                \App\Filament\Widgets\TodayMeetings::class,
             ])
             ->middleware([
                 EncryptCookies::class,
