@@ -3,6 +3,8 @@
 namespace App\Filament\Pages;
 
 use App\Models\Attendance;
+use App\Models\DivisionReport;
+use App\Models\Partner;
 use App\Services\GoogleCalendarService;
 use Filament\Pages\Page;
 use Filament\Support\Enums\Width;
@@ -87,5 +89,62 @@ class CustomDashboard extends Page implements HasTable
     public function getMeetings()
     {
         return app(GoogleCalendarService::class)->getTodayEvents();
-    }   
+    }
+
+    public function getLatestDivisionReports()
+    {
+        return DivisionReport::with(['division'])
+            ->latest('report_date')
+            ->get()
+            ->groupBy('division_id')
+            ->map(function ($reports) {
+                return $reports->first(); 
+            })
+            ->values();
+    }
+
+    public function getPmiYearlyVisaChart()
+    {
+        $data = \App\Models\PmiDeparture::query()
+            ->selectRaw('YEAR(date) as year, visa_id, SUM(total) as total')
+            ->with('visa')
+            ->groupBy('year', 'visa_id')
+            ->orderBy('year')
+            ->get();
+
+        $years = $data->pluck('year')->unique()->sort()->values();
+
+        $visas = \App\Models\Visa::pluck('name', 'id');
+
+        $datasets = [];
+
+        foreach ($visas as $visaId => $visaName) {
+
+            $datasetData = [];
+
+            foreach ($years as $year) {
+                $record = $data->first(
+                    fn($d) =>
+                    $d->year == $year && $d->visa_id == $visaId
+                );
+
+                $datasetData[] = $record ? (int) $record->total : 0;
+            }
+
+            $datasets[] = [
+                'label' => $visaName,
+                'data' => $datasetData,
+            ];
+        }
+
+        return [
+            'labels' => $years,
+            'datasets' => $datasets,
+        ];
+    }
+
+    public function getPartners()
+    {
+        return Partner::orderBy('name')->get();
+    }
 }
