@@ -44,9 +44,7 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->widgets([
-                AccountWidget::class,
-                \App\Filament\Widgets\PmiChart::class,
-                \App\Filament\Widgets\TodayMeetings::class,
+                // AccountWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
