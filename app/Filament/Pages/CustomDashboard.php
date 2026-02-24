@@ -36,7 +36,9 @@ class CustomDashboard extends Page implements HasTable
     {
         return $table
             ->query(
-                Attendance::query()->with('user')
+                Attendance::query()
+                    ->with('user')
+                    ->whereDate('created_at', today())
             )
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')
