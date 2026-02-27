@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Auth::attempting(function ($credentials, $remember) {
+            $user = \App\Models\User::where('email', $credentials['email'])->first();
+
+            if (!$user || !$user->is_active || !in_array($user->role, ['admin', 'staff'])) {
+                return false;
+            }
+        });
     }
 }
