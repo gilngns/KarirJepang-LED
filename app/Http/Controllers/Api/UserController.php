@@ -38,7 +38,7 @@ class UserController extends Controller
         $user = User::create([
             'name'      => $validated['name'],
             'email'     => $validated['email'],
-            'password'  => $validated['password'], // auto hashed
+            'password'  => $validated['password'],
             'role'      => $validated['role'],
             'is_active' => true,
         ]);

@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\DivisionReportController;
 use App\Http\Controllers\Api\PartnerController;
 use App\Http\Controllers\Api\PmiDepartureController;
+use App\Http\Controllers\Api\UserController;
 
 Route::get('/test', function () {
     return response()->json([
@@ -51,6 +52,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('partners', PartnerController::class);
 
     Route::apiResource('pmi-departures', PmiDepartureController::class);
+
+    Route::apiResource('users', UserController::class);
 
     Route::get('/meetings-today', function (GoogleCalendarService $calendar) {
         return response()->json(
