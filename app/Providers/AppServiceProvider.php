@@ -20,12 +20,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Auth::attempting(function ($credentials, $remember) {
-            $user = \App\Models\User::where('email', $credentials['email'])->first();
-
-            if (!$user || !$user->is_active || !in_array($user->role, ['admin', 'staff'])) {
-                return false;
-            }
-        });
+        
     }
 }
