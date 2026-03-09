@@ -16,6 +16,12 @@ Route::get('/test', function () {
     ]);
 });
 
+Route::get('/meetings-today', function (GoogleCalendarService $calendar) {
+    return response()->json(
+        $calendar->getTodayEvents()
+    );
+});
+
 Route::post('/login', function (Request $request) {
 
     $credentials = $request->validate([
@@ -54,10 +60,4 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('pmi-departures', PmiDepartureController::class);
 
     Route::apiResource('users', UserController::class);
-
-    Route::get('/meetings-today', function (GoogleCalendarService $calendar) {
-        return response()->json(
-            $calendar->getTodayEvents()
-        );
-    });
 });
