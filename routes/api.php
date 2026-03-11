@@ -6,6 +6,7 @@ use App\Services\GoogleCalendarService;
 
 use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\DivisionReportController;
+use App\Http\Controllers\Api\MeetingController;
 use App\Http\Controllers\Api\PartnerController;
 use App\Http\Controllers\Api\PmiDepartureController;
 use App\Http\Controllers\Api\UserController;
@@ -14,12 +15,6 @@ Route::get('/test', function () {
     return response()->json([
         'message' => 'API works!',
     ]);
-});
-
-Route::get('/meetings-today', function (GoogleCalendarService $calendar) {
-    return response()->json(
-        $calendar->getTodayEvents()
-    );
 });
 
 Route::post('/login', function (Request $request) {
@@ -60,4 +55,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('pmi-departures', PmiDepartureController::class);
 
     Route::apiResource('users', UserController::class);
+
+    Route::get('/meetings-today', [MeetingController::class, 'today']);
 });

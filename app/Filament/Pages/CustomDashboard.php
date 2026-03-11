@@ -5,8 +5,8 @@ namespace App\Filament\Pages;
 use App\Models\Attendance;
 use App\Models\DivisionReport;
 use App\Models\Partner;
-use App\Services\GoogleCalendarService;
 use Filament\Pages\Page;
+use App\Models\Meeting;
 use Filament\Support\Enums\Width;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -90,7 +90,10 @@ class CustomDashboard extends Page implements HasTable
 
     public function getMeetings()
     {
-        return app(GoogleCalendarService::class)->getTodayEvents();
+        return Meeting::query()
+            ->whereDate('start_time', today())
+            ->orderBy('start_time')
+            ->get();
     }
 
     public function getLatestDivisionReports()

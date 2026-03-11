@@ -34,17 +34,19 @@
                     <div class="space-y-4">
                         @foreach($meetings as $meeting)
                             @php
-                                $start = \Carbon\Carbon::parse($meeting['start']);
-                                $end   = \Carbon\Carbon::parse($meeting['end']);
+                                $start = \Carbon\Carbon::parse($meeting->start_time);
+                                $end   = \Carbon\Carbon::parse($meeting->end_time);
                                 $isOngoing = now()->between($start, $end);
                             @endphp
 
                             <div class="border-b border-gray-700 pb-4 last:border-none last:pb-0">
                                 <div class="flex justify-between items-start">
+
                                     <div>
                                         <div class="font-semibold">
-                                            {{ $meeting['title'] }}
+                                            {{ $meeting->title }}
                                         </div>
+
                                         <div class="text-xs text-gray-400 mt-1">
                                             {{ $start->format('H:i') }} - {{ $end->format('H:i') }}
                                         </div>
@@ -59,9 +61,11 @@
                                             Terjadwal
                                         </span>
                                     @endif
+
                                 </div>
                             </div>
-                        @endforeach
+
+                            @endforeach
                     </div>
                 @endif
 
